@@ -1,0 +1,22 @@
+<html>
+<head>
+  <title>Flow Sensor Data</title>
+</head>
+<body>
+  <h1>Flow Sensor Data</h1>
+  <div id="data">Loading data...</div>
+  <script>
+    setInterval(function() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var data = JSON.parse(this.responseText);
+          document.getElementById("data").innerHTML = "Pulse Count: " + data.pulse_count + "<br>Flow Rate: " + data.flow_rate + " L/min<br>Flow: " + data.flow_milli_litres + " mL/sec<br>Total: " + data.total_milli_litres + " mL";
+        }
+      };
+      xhttp.open("GET", "/data", true);
+      xhttp.send();
+    }, 1000);
+  </script>
+</body>
+</html>
